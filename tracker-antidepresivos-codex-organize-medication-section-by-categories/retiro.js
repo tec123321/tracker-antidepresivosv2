@@ -1,5 +1,11 @@
 import { medDatabase } from './data.js';
+// Cargar preferencia de tema guardada
+if (localStorage.getItem('theme') === 'light') {
+  document.body.classList.add('light-mode');
+}
+// --------------------------
 
+const taperGrid = document.getElementById('taperGrid');
 const taperGrid = document.getElementById('taperGrid');
 
 function groupByCategory() {
