@@ -6,8 +6,6 @@ if (localStorage.getItem('theme') === 'light') {
 // --------------------------
 
 const interactionList = document.getElementById('interactionList');
-
-const interactionList = document.getElementById('interactionList');
 const supplementHighlight = document.getElementById('supplementHighlight');
 
 const severityOrder = { high: 0, medium: 1, low: 2 };
