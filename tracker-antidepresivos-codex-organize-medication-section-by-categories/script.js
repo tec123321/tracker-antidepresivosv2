@@ -464,6 +464,9 @@ function recordAlerts(data, alerts) {
 }
 
 function removeMed(id) {
+  // Pega tu línea aquí:
+  if (!confirm("¿Estás seguro de que quieres eliminar este tratamiento y todo su historial? Esta acción no se puede deshacer.")) return;
+
   const data = loadData();
   data.meds = data.meds.filter((m) => m.id !== id);
   saveAndRender(data);
