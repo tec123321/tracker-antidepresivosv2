@@ -655,14 +655,17 @@ window.exportarDatos = function() {
   renderCatalog();
   saveAndRender(data);
 
-const toggleBtn = document.getElementById('themeToggle');
-  toggleBtn.addEventListener('click', () => {
-    // CORRECCIÓN: Usar 'light-mode' que es lo que definiste en CSS
-    document.body.classList.toggle('light-mode'); 
-    
-    const isLight = document.body.classList.contains('light-mode');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-  });
+// MODIFICACIÓN AQUÍ
+  const toggleBtn = document.getElementById('themeToggle');
+  
+  // Verificamos que el botón exista antes de usarlo
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      const isLight = document.body.classList.contains('light-mode');
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
+  }
 
   // Cargar preferencia al inicio
   if (localStorage.getItem('theme') === 'light') {
