@@ -944,28 +944,21 @@ html.app-ready main .panel:nth-of-type(5) { animation-delay: 0.18s; }
     min-width: 0;
   }
 }
-/* --- TEMA CLARO (Light Mode) --- */
-/* Esto define los colores cuando el cuerpo tiene la clase 'light-theme' */
-body.light-theme {
-  --bg: #f8fafc;        /* Fondo casi blanco */
-  --panel: #ffffff;     /* Paneles blancos puros */
-  --card: #f1f5f9;      /* Tarjetas gris muy claro */
-  --text: #0f172a;      /* Texto oscuro casi negro */
-  --muted: #64748b;     /* Texto secundario gris medio */
-  --border: #e2e8f0;    /* Bordes gris suave */
+/* Pega esto al inicio de tu CSS */
+:root {
+    /* MODO CLARO (Tus colores actuales) */
+    --bg-body: #f4f6f8; 
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --primary: #06b6d4; /* Cian */
 }
 
-/* Ajustes para que las sombras se vean bien en fondo blanco */
-body.light-theme .hero, 
-body.light-theme .panel,
-body.light-theme .med-card,
-body.light-theme .reminder-card {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  background: var(--panel); /* Usar el color sólido, quitar gradientes oscuros */
-}
-
-/* Ajustar el texto del header en modo claro */
-body.light-theme .hero h1,
-body.light-theme .hero .eyebrow {
-   /* Opcional: si quieres cambiar colores específicos de títulos aquí */
+/* Define los colores MANUALMENTE para modo oscuro */
+body.dark-mode {
+    --bg-body: #0f172a; /* Fondo oscuro real, no invertido */
+    --bg-card: #1e293b; /* Tarjetas oscuras */
+    --text-main: #f1f5f9; /* Texto claro */
+    --text-muted: #94a3b8;
+    --primary: #22d3ee; /* Cian ajustado para fondo oscuro */
 }
