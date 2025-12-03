@@ -39,8 +39,9 @@ body.light-mode {
 body {
   margin: 0;
   /* AQUI USAMOS LA VARIABLE QUE FALLABA */
-  background: var(--bg-gradient);
-  background-color: var(--bg); /* Color de respaldo */
+/* CAMBIO: Usar background-image para que no pise el background-color */
+  background-image: var(--bg-gradient);
+  background-color: var(--bg);
   color: var(--text);
   min-height: 100vh;
   transition: background 0.3s ease, color 0.3s ease;
