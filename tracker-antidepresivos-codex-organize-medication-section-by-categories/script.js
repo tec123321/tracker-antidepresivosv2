@@ -650,15 +650,15 @@ window.exportarDatos = function() {
 };
 
 (function init() {
-  const data = loadData();
-  populateMedOptions();
-  renderCatalog();
-  saveAndRender(data);
-
-// MODIFICACIÓN AQUÍ
+  // --- 1. ESTO VA PRIMERO (Configuración del Tema) ---
   const toggleBtn = document.getElementById('themeToggle');
   
-  // Verificamos que el botón exista antes de usarlo
+  // Cargar preferencia visual guardada (si existe)
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light-mode');
+  }
+
+  // Activar el botón de cambio de tema
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
       document.body.classList.toggle('light-mode');
@@ -667,8 +667,11 @@ window.exportarDatos = function() {
     });
   }
 
-  // Cargar preferencia al inicio
-  if (localStorage.getItem('theme') === 'light') {
-    document.body.classList.add('light-mode');
-  }
+  // --- 2. ESTO VA DESPUÉS (Carga de la App) ---
+  // Si esto falla por algún error de datos, el tema ya estará cargado y funcionando.
+  const data = loadData();
+  populateMedOptions();
+  renderCatalog();
+  saveAndRender(data);
+
 })();
