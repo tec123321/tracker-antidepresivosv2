@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interacciones - Seguimiento de medicación</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero" style="grid-template-columns: 2fr 1fr;">
+    <div>
+      <p class="eyebrow">Interacciones</p>
+      <h1>Revisa combinaciones relevantes</h1>
+      <p class="lede">Resumen visual de posibles interacciones entre medicamentos, suplementos y sustancias frecuentes.</p>
+      <div class="actions">
+        <a class="primary link-button" href="index.html">Volver al registro</a>
+        <a class="ghost link-button" href="retiro.html">Plan de retiro gradual</a>
+      </div>
+    </div>
+    <div class="pill-card">
+      <p class="pill-card__title">Cómo leer la lista</p>
+      <p class="muted">- Se muestran combinaciones en ambas direcciones para evitar omisiones.</p>
+      <p class="muted">- Ordenado por severidad: alta, media y baja.</p>
+      <p class="muted">- Usa estas notas solo como guía para hablar con tu médico.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="panel__header">
+        <div>
+          <p class="eyebrow">Mapa completo</p>
+          <h2>Interacciones probables</h2>
+        </div>
+        <p class="muted">Incluye medicamentos y suplementos del catálogo base.</p>
+      </div>
+      <div id="interactionList" class="alert-list"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel__header">
+        <div>
+          <p class="eyebrow">Suplementos separados</p>
+          <h2>Dónde pueden sumar riesgo</h2>
+        </div>
+        <p class="muted">Solo se listan suplementos y sustancias no médicas para mantener el formulario principal limpio.</p>
+      </div>
+      <div id="supplementHighlight" class="chip-grid"></div>
+    </section>
+  </main>
+
+  <script type="module" src="interacciones.js"></script>
+</body>
+</html>

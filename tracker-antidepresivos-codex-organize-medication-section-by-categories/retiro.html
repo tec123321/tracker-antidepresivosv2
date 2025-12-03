@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan de retiro gradual - Seguimiento de medicación</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero" style="grid-template-columns: 2fr 1fr;">
+    <div>
+      <p class="eyebrow">Retiro progresivo</p>
+      <h1>Referencias para reducir de forma gradual</h1>
+      <p class="lede">Guías rápidas por categoría de medicamento para hablar con tu médico antes de hacer ajustes.</p>
+      <div class="actions">
+        <a class="primary link-button" href="index.html">Volver al registro</a>
+        <a class="ghost link-button" href="interacciones.html">Ver interacciones</a>
+      </div>
+    </div>
+    <div class="pill-card">
+      <p class="pill-card__title">Recuerda</p>
+      <p class="muted">Las pautas son orientativas. Cada descenso debe individualizarse.</p>
+      <p class="muted">Registra síntomas y adherencia cada semana para ajustar con tu especialista.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="panel__header">
+        <div>
+          <p class="eyebrow">Pautas simuladas</p>
+          <h2>Plan sugerido por categoría</h2>
+        </div>
+        <p class="muted">Incluye antidepresivos, benzodiacepinas e hipnóticos. No se listan suplementos aquí.</p>
+      </div>
+      <div id="taperGrid" class="med-grid"></div>
+    </section>
+  </main>
+
+  <script type="module" src="retiro.js"></script>
+</body>
+</html>
