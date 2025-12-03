@@ -53,4 +53,3 @@ export function clasificarEstadoAdherencia(porcentaje) {
   if (porcentaje >= 50) return { level: 'regular', label: 'Regular', class: 'snoozed' };
   
   return { level: 'baja', label: 'Baja', class: 'due' };
-}
