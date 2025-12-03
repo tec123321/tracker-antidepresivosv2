@@ -6,7 +6,6 @@ if (localStorage.getItem('theme') === 'light') {
 // --------------------------
 
 const taperGrid = document.getElementById('taperGrid');
-const taperGrid = document.getElementById('taperGrid');
 
 function groupByCategory() {
   return medDatabase
