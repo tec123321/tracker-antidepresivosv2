@@ -1,4 +1,11 @@
 import { medDatabase } from './data.js';
+// Cargar preferencia de tema guardada
+if (localStorage.getItem('theme') === 'light') {
+  document.body.classList.add('light-mode');
+}
+// --------------------------
+
+const interactionList = document.getElementById('interactionList');
 
 const interactionList = document.getElementById('interactionList');
 const supplementHighlight = document.getElementById('supplementHighlight');
