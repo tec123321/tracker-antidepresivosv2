@@ -655,16 +655,17 @@ window.exportarDatos = function() {
   renderCatalog();
   saveAndRender(data);
 
-  const toggleBtn = document.getElementById('themeToggle');
-toggleBtn.addEventListener('click', () => {
-  document.body.classList.toggle('light-theme');
-  // Opcional: Guardar preferencia
-  const isLight = document.body.classList.contains('light-theme');
-  localStorage.setItem('theme', isLight ? 'light' : 'dark');
-});
+const toggleBtn = document.getElementById('themeToggle');
+  toggleBtn.addEventListener('click', () => {
+    // CORRECCIÓN: Usar 'light-mode' que es lo que definiste en CSS
+    document.body.classList.toggle('light-mode'); 
+    
+    const isLight = document.body.classList.contains('light-mode');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  });
 
-// Cargar preferencia al inicio
-if (localStorage.getItem('theme') === 'light') {
-  document.body.classList.add('light-theme');
-}
+  // Cargar preferencia al inicio
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light-mode');
+  }
 })();
