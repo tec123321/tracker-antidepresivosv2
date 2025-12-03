@@ -1,13 +1,33 @@
 :root {
+  /* --- MODO OSCURO (Tus colores actuales por defecto) --- */
   --bg: #0f172a;
   --panel: #111827;
   --card: #0b1220;
-  --accent: #5eead4;
+  --accent: #5eead4;       /* Cian brillante para fondo oscuro */
   --accent-strong: #14b8a6;
   --muted: #94a3b8;
-  --text: #e2e8f0;
+  --text: #e2e8f0;         /* Texto claro */
   --border: #1f2937;
   --danger: #f43f5e;
+  
+  /* Gradiente de fondo oscuro */
+  --bg-gradient: radial-gradient(circle at 10% 20%, rgba(94, 234, 212, 0.08), transparent 25%);
+}
+
+/* --- MODO CLARO (Añade esta clase a tu body para cambiar) --- */
+body.light-mode {
+  --bg: #f8fafc;           /* Fondo casi blanco */
+  --panel: #ffffff;        /* Paneles blancos */
+  --card: #f1f5f9;         /* Tarjetas gris muy claro */
+  --accent: #0891b2;       /* Cian más oscuro para que se lea sobre blanco */
+  --accent-strong: #0e7490;
+  --muted: #64748b;
+  --text: #0f172a;         /* Texto oscuro */
+  --border: #e2e8f0;
+  --danger: #ef4444;
+
+  /* Gradiente de fondo claro (sutil) */
+  --bg-gradient: radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.1), transparent 25%);
 }
 
 * {
@@ -943,22 +963,4 @@ html.app-ready main .panel:nth-of-type(5) { animation-delay: 0.18s; }
     width: 100%;
     min-width: 0;
   }
-}
-/* Pega esto al inicio de tu CSS */
-:root {
-    /* MODO CLARO (Tus colores actuales) */
-    --bg-body: #f4f6f8; 
-    --bg-card: #ffffff;
-    --text-main: #1e293b;
-    --text-muted: #64748b;
-    --primary: #06b6d4; /* Cian */
-}
-
-/* Define los colores MANUALMENTE para modo oscuro */
-body.dark-mode {
-    --bg-body: #0f172a; /* Fondo oscuro real, no invertido */
-    --bg-card: #1e293b; /* Tarjetas oscuras */
-    --text-main: #f1f5f9; /* Texto claro */
-    --text-muted: #94a3b8;
-    --primary: #22d3ee; /* Cian ajustado para fondo oscuro */
 }
