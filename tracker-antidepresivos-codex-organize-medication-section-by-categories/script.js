@@ -1,4 +1,6 @@
 import { medDatabase } from './data.js';
+// IMPORTAMOS LAS NUEVAS FUNCIONES DE ADHERENCIA
+import { calcularSemanaDesdeInicio, calcularAdherencia, clasificarEstadoAdherencia } from './adherencia.js';
 
 const storageKey = 'med-tracker';
 const medForm = document.getElementById('medForm');
@@ -88,14 +90,31 @@ function weeksBetween(startDate, endDate = new Date()) {
   return Math.max(0, Math.floor((endDate - startDate) / ms));
 }
 
+// --- FUNCIÓN ACTUALIZADA CON LÓGICA DE ADHERENCIA ---
 function renderStats(data) {
   const today = new Date();
   const active = data.meds.length;
   const due = data.meds.filter((med) => reminderStatus(med).status === 'due').length;
-  const maxWeek = Math.max(0, ...data.meds.map((m) => weeksBetween(new Date(m.startDate), today) + 1));
+  
+  // Usamos la nueva función importada
+  const maxWeek = Math.max(0, ...data.meds.map((m) => calcularSemanaDesdeInicio(m.startDate, today)));
+
+  // Cálculo promedio adherencia global
+  let totalAdherence = 0;
+  let medsWithLogs = 0;
+  data.meds.forEach(med => {
+      const weeks = calcularSemanaDesdeInicio(med.startDate, today);
+      if (med.logs && med.logs.length > 0) {
+          totalAdherence += calcularAdherencia(med.logs, weeks);
+          medsWithLogs++;
+      }
+  });
+  const globalAvg = medsWithLogs > 0 ? Math.round(totalAdherence / medsWithLogs) : 0;
+
   statActive.textContent = `${active} ${active === 1 ? 'plan activo' : 'planes activos'}`;
   statDue.textContent = `${due} ${due === 1 ? 'recordatorio pendiente' : 'recordatorios pendientes'}`;
-  statWeek.textContent = `Semana ${maxWeek} en curso`;
+  // Mostramos semana y adherencia
+  statWeek.innerHTML = `Semana ${maxWeek} <span style="opacity:0.5">|</span> ${globalAvg}% Adherencia`;
 }
 
 function reminderStatus(med) {
@@ -163,14 +182,14 @@ function renderReminders(data) {
     reminderList.innerHTML = '<p class="muted">Aún no tienes tratamientos configurados.</p>';
     return;
   }
-const medsToShow = filterMedsForView(data.meds);
+  const medsToShow = filterMedsForView(data.meds);
 
-if (!medsToShow.length) {
-  medList.innerHTML = '<p class="muted">No hay tratamientos que coincidan con los filtros actuales.</p>';
-  return;
-}
+  if (!medsToShow.length) {
+    reminderList.innerHTML = '<p class="muted">No hay tratamientos que coincidan con los filtros actuales.</p>';
+    return;
+  }
 
-medsToShow.forEach((med) => {
+  medsToShow.forEach((med) => {
     const status = reminderStatus(med);
     const card = document.createElement('div');
     card.className = 'reminder-card';
@@ -246,6 +265,7 @@ function filterMedsForView(meds) {
   });
 }
 
+// --- RENDERMEDS ACTUALIZADO CON BADGE DE ADHERENCIA ---
 function renderMeds(data) {
   medList.innerHTML = '';
   if (!data.meds.length) {
@@ -257,12 +277,21 @@ function renderMeds(data) {
     card.className = 'med-card';
     const status = reminderStatus(med);
     const badgeClass = status.status === 'due' ? 'due' : status.status === 'snoozed' ? 'snoozed' : 'ok';
+    
+    // Cálculo adherencia individual
+    const weeksRunning = calcularSemanaDesdeInicio(med.startDate);
+    const adherencePct = calcularAdherencia(med.logs, weeksRunning);
+    const adInfo = clasificarEstadoAdherencia(adherencePct);
+
     card.innerHTML = `
       <div class="med-card__header">
         <div>
           <h3 style="margin:0;">${med.name}</h3>
           <p class="muted" style="margin:4px 0;">${med.dose}</p>
-          <p class="muted" style="margin:0;">Inicio: ${new Date(med.startDate).toLocaleDateString()}</p>
+          <p class="muted" style="font-size:12px; margin-top:4px;">
+             Inicio: ${new Date(med.startDate).toLocaleDateString()} · 
+             Adherencia: <strong style="color:var(--accent)">${adherencePct}%</strong> (${adInfo.label})
+          </p>
         </div>
         <span class="badge ${badgeClass}">${status.status === 'due' ? 'Pendiente' : status.status === 'snoozed' ? 'Pausado' : 'Al día'}</span>
       </div>
@@ -576,9 +605,6 @@ scrollToRemindersBtn.addEventListener('click', () => {
   document.getElementById('reminders').scrollIntoView({ behavior: 'smooth' });
 });
 
-
-
-
 if (medSearchInput) {
   medSearchInput.addEventListener('input', (e) => {
     medFilters.search = e.target.value.toLowerCase();
@@ -595,7 +621,7 @@ if (medFilterStatus) {
   });
 }
 
-// Marcar cuando la app está lista para activar animaciones suaves
+// Marcar cuando la app está lista
 if (document.readyState === 'loading') {
   window.addEventListener('DOMContentLoaded', () => {
     document.documentElement.classList.add('app-ready');
@@ -603,6 +629,22 @@ if (document.readyState === 'loading') {
 } else {
   document.documentElement.classList.add('app-ready');
 }
+
+// --- FUNCIÓN DE EXPORTACIÓN AÑADIDA ---
+window.exportarDatos = function() {
+  const data = localStorage.getItem(storageKey);
+  if (!data) {
+    alert("No hay datos para exportar.");
+    return;
+  }
+  const blob = new Blob([data], {type: "application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `neurotrack-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+};
 
 (function init() {
   const data = loadData();
