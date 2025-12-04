@@ -1,36 +1,86 @@
 :root {
-  /* --- 1. VARIABLES BASE (MODO OSCURO) --- */
+  /* =========================================
+     1. PALETA DE COLORES (MODO OSCURO - DEFAULT)
+     ========================================= */
+  
+  /* Fondos principales */
   --bg: #0f172a;
+  --bg-gradient: radial-gradient(circle at 10% 20%, rgba(94, 234, 212, 0.08), transparent 25%);
+  
+  /* Contenedores y Paneles */
   --panel: #111827;
   --card: #0b1220;
-  --accent: #5eead4;
-  --accent-strong: #14b8a6;
-  --muted: #94a3b8;
+  --pill-bg: rgba(12, 18, 35, 0.8);
+  --hero-bg: linear-gradient(120deg, rgba(20, 184, 166, 0.08), rgba(15, 23, 42, 0.9));
+  
+  /* Elementos de Formulario */
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --input-border: rgba(255, 255, 255, 0.08);
+  --input-text: #e2e8f0;
+  --input-focus: rgba(94, 234, 212, 0.12);
+
+  /* Texto */
   --text: #e2e8f0;
+  --muted: #94a3b8; /* Slate 400 */
+  
+  /* Acentos y Bordes */
+  --accent: #5eead4;       /* Teal 300 */
+  --accent-strong: #14b8a6; /* Teal 500 */
   --border: #1f2937;
   --danger: #f43f5e;
   
-  /* Aquí definimos el gradiente como variable */
-  --bg-gradient: radial-gradient(circle at 10% 20%, rgba(94, 234, 212, 0.08), transparent 25%);
+  /* Botones e interactivos */
+  --ghost-bg: rgba(255, 255, 255, 0.06);
+  --ghost-border: rgba(255, 255, 255, 0.1);
+  --hover-transform: translateY(-1px);
+
+  /* Elementos específicos */
+  --dot-bg: rgba(255, 255, 255, 0.04);
+  --chip-bg: rgba(255, 255, 255, 0.04);
 }
 
-/* --- 2. VARIABLES PARA MODO CLARO --- */
+/* =========================================
+   2. SOBREESCRITURA PARA MODO CLARO
+   ========================================= */
 body.light-mode {
-  --bg: #f8fafc;
-  --panel: #ffffff;
-  --card: #f1f5f9;
-  --accent: #0891b2;
-  --accent-strong: #0e7490;
-  --muted: #64748b;
-  --text: #0f172a;
-  --border: #e2e8f0;
-  --danger: #ef4444;
-
-  /* Gradiente diferente para el modo claro */
+  /* Fondos principales */
+  --bg: #f8fafc; /* Slate 50 */
   --bg-gradient: radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.1), transparent 25%);
+  
+  /* Contenedores y Paneles */
+  --panel: #ffffff;
+  --card: #f1f5f9; /* Slate 100 */
+  --pill-bg: rgba(255, 255, 255, 0.8);
+  --hero-bg: linear-gradient(120deg, rgba(6, 182, 212, 0.1), rgba(255, 255, 255, 0.9));
+  
+  /* Elementos de Formulario */
+  --input-bg: #ffffff;
+  --input-border: #cbd5e1; /* Slate 300 */
+  --input-text: #0f172a;
+  --input-focus: rgba(8, 145, 178, 0.1);
+
+  /* Texto */
+  --text: #0f172a; /* Slate 900 */
+  --muted: #64748b; /* Slate 500 - Más oscuro para leerse bien en blanco */
+  
+  /* Acentos y Bordes */
+  --accent: #0891b2;       /* Cyan 600 */
+  --accent-strong: #0e7490; /* Cyan 700 */
+  --border: #e2e8f0;       /* Slate 200 */
+  --danger: #ef4444;
+  
+  /* Botones e interactivos */
+  --ghost-bg: rgba(0, 0, 0, 0.04);
+  --ghost-border: rgba(0, 0, 0, 0.1);
+
+  /* Elementos específicos */
+  --dot-bg: #e2e8f0;
+  --chip-bg: #ffffff;
 }
 
-/* --- 3. ESTILOS GENERALES --- */
+/* =========================================
+   3. ESTILOS GENERALES (USANDO SOLO VARIABLES)
+   ========================================= */
 * {
   box-sizing: border-box;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -38,25 +88,15 @@ body.light-mode {
 
 body {
   margin: 0;
-  /* AQUI USAMOS LA VARIABLE QUE FALLABA */
-/* CAMBIO: Usar background-image para que no pise el background-color */
-  background-image: var(--bg-gradient);
   background-color: var(--bg);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed; /* Mantiene el gradiente fijo al hacer scroll */
   color: var(--text);
   min-height: 100vh;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* --- Resto de tus estilos (Barra superior, botones, etc.) --- */
-.hero {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 32px;
-  padding: 48px clamp(16px, 4vw, 56px);
-  background: linear-gradient(120deg, rgba(20, 184, 166, 0.08), rgba(15, 23, 42, 0.9));
-  border-bottom: 1px solid var(--border);
-}
-
+/* --- Títulos y Texto --- */
 .eyebrow {
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -69,10 +109,12 @@ body {
 h1 {
   font-size: clamp(28px, 4vw, 42px);
   margin: 0 0 12px;
+  color: var(--text);
 }
 
-h2 {
+h2, h3 {
   margin: 4px 0 6px;
+  color: var(--text);
 }
 
 .lede {
@@ -82,6 +124,56 @@ h2 {
   margin: 0 0 20px;
 }
 
+.muted { color: var(--muted); margin: 0; }
+.text-link { color: var(--accent); }
+
+/* --- Hero Section --- */
+.hero {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  padding: 48px clamp(16px, 4vw, 56px);
+  background: var(--hero-bg); /* Ahora usa la variable dinámica */
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease;
+}
+
+/* --- Componentes UI: Tarjetas y Paneles --- */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px clamp(16px, 2vw, 32px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); /* Sombra más sutil */
+}
+
+.pill-card {
+  border: 1px solid var(--border);
+  background: var(--pill-bg);
+  padding: 16px;
+  border-radius: 16px;
+  display: grid;
+  gap: 8px;
+  height: fit-content;
+  backdrop-filter: blur(8px); /* Efecto vidrio si el navegador lo soporta */
+}
+
+.pill-card__title {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.pill-card__stat {
+  background: var(--dot-bg);
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  color: var(--text);
+  border: 1px solid var(--border); /* Añadido borde sutil para contraste */
+}
+
+/* --- Botones --- */
 .actions {
   display: flex;
   gap: 12px;
@@ -102,67 +194,55 @@ button, .link-button {
 }
 
 button:hover, .link-button:hover {
-  transform: translateY(-1px);
+  transform: var(--hover-transform);
 }
 
 .primary {
   background: linear-gradient(120deg, var(--accent-strong), var(--accent));
-  color: #0f172a;
-  box-shadow: 0 10px 30px rgba(20, 184, 166, 0.35);
+  color: #ffffff; /* Texto blanco siempre en botón primario */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
+/* Ajuste para texto oscuro si el accent es muy claro en modo oscuro, 
+   pero blanco suele ir bien con teal/cyan */
+body:not(.light-mode) .primary { color: #0f172a; } 
 
 .ghost {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--ghost-bg);
   color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--ghost-border);
 }
 
-.pill-card {
-  border: 1px solid var(--border);
-  background: rgba(12, 18, 35, 0.8);
-  padding: 16px;
-  border-radius: 16px;
+/* --- Formularios (Inputs) --- */
+.form-grid {
   display: grid;
-  gap: 8px;
-  height: fit-content;
-}
-
-.pill-card__title {
-  margin: 0;
-  color: var(--muted);
-  font-weight: 700;
-}
-
-.pill-card__stat {
-  background: rgba(255, 255, 255, 0.04);
-  padding: 12px;
-  border-radius: 12px;
-  font-weight: 700;
-}
-
-main {
-  padding: 32px clamp(16px, 4vw, 56px) 64px;
-  display: grid;
-  gap: 28px;
-}
-
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 20px clamp(16px, 2vw, 32px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-}
-
-.panel__header {
-  display: flex;
-  justify-content: space-between;
   gap: 12px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
+label {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+input, textarea, select {
+  background: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--input-focus);
+  background: var(--panel); /* Asegura legibilidad al enfocar */
+}
+
+/* --- Listas y Grid de Chips --- */
 .catalog-grid {
   display: grid;
   gap: 12px;
@@ -180,41 +260,12 @@ main {
   padding: 10px 12px;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--chip-bg);
   color: var(--text);
   font-weight: 700;
 }
 
-.text-link { color: var(--accent); }
-.muted { color: var(--muted); margin: 0; }
-
-.form-grid {
-  display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
-
-label {
-  display: grid;
-  gap: 6px;
-  font-weight: 700;
-  color: var(--muted); /* Ajustado para que se vea bien en ambos modos */
-}
-
-input, textarea, select {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  padding: 10px 12px;
-  outline: none;
-}
-
-input:focus, textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(94, 234, 212, 0.12);
-}
-
+/* --- Tarjetas de Medicación --- */
 .med-grid {
   display: grid;
   gap: 16px;
@@ -237,24 +288,56 @@ input:focus, textarea:focus {
   gap: 10px;
 }
 
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* --- Badges y Estados --- */
 .badge {
   padding: 6px 10px;
-  background: rgba(94, 234, 212, 0.1);
-  border: 1px solid rgba(94, 234, 212, 0.35);
-  color: var(--accent);
   border-radius: 999px;
   font-weight: 700;
   font-size: 12px;
+  border: 1px solid transparent;
 }
 
-.badge.due { background: rgba(244, 63, 94, 0.12); color: #fecdd3; border-color: rgba(244,63,94,0.4); }
-.badge.ok { background: rgba(56, 189, 248, 0.12); color: #bae6fd; border-color: rgba(56,189,248,0.5); }
-.badge.snoozed { background: rgba(244, 158, 38, 0.12); color: #fed7aa; border-color: rgba(244,158,38,0.4); }
+/* Para los badges usamos colores fijos con opacidad o variables específicas si quisieras.
+   Aquí usaré valores fijos RGBA que suelen funcionar en ambos modos, 
+   o ajustaremos ligeramente. */
 
-.badge-low { background:rgba(92, 191, 255, 0.14); color:#5cbfff; border:1px solid rgba(92,191,255,0.4); text-transform:uppercase; letter-spacing:.5px; }
-.badge-medium { background:rgba(255, 197, 92, 0.14); color:#ffc55c; border:1px solid rgba(255,197,92,0.4); text-transform:uppercase; letter-spacing:.5px; }
-.badge-high { background:rgba(255, 123, 92, 0.14); color:#ff7b5c; border:1px solid rgba(255,123,92,0.4); text-transform:uppercase; letter-spacing:.5px; }
+.badge.due { 
+  background: rgba(244, 63, 94, 0.12); 
+  color: var(--danger); 
+  border-color: rgba(244, 63, 94, 0.3); 
+}
+.badge.ok { 
+  background: rgba(14, 165, 233, 0.12); /* Sky blue */
+  color: var(--accent); 
+  border-color: var(--accent);
+  opacity: 0.9;
+}
+.badge.snoozed { 
+  background: rgba(245, 158, 11, 0.12); /* Amber */
+  color: #f59e0b; 
+  border-color: rgba(245, 158, 11, 0.3); 
+}
+/* Ajuste de color badge snoozed para light mode */
+body.light-mode .badge.snoozed { color: #d97706; border-color: #d97706; }
 
+
+.badge-low { background:rgba(14, 165, 233, 0.1); color:#0ea5e9; border:1px solid rgba(14, 165, 233,0.3); }
+.badge-medium { background:rgba(234, 179, 8, 0.1); color:#eab308; border:1px solid rgba(234, 179, 8,0.3); }
+.badge-high { background:rgba(244, 63, 94, 0.1); color:#f43f5e; border:1px solid rgba(244, 63, 94,0.3); }
+
+/* Ajuste de contraste para Badges en modo claro */
+body.light-mode .badge-low { color:#0284c7; border-color:#0284c7; }
+body.light-mode .badge-medium { color:#ca8a04; border-color:#ca8a04; }
+body.light-mode .badge-high { color:#e11d48; border-color:#e11d48; }
+
+
+/* --- Timeline Dots --- */
 .timeline {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
@@ -265,7 +348,7 @@ input:focus, textarea:focus {
   height: 36px;
   border-radius: 10px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--dot-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -273,41 +356,27 @@ input:focus, textarea:focus {
   color: var(--muted);
 }
 
-.dot.done { background: rgba(20, 184, 166, 0.2); color: var(--text); border-color: rgba(20, 184, 166, 0.5); }
-.dot.pending { background: rgba(244, 158, 38, 0.12); border-color: rgba(244, 158, 38, 0.4); color: #fed7aa; }
+.dot.done { 
+  background: rgba(20, 184, 166, 0.2); 
+  color: var(--text); 
+  border-color: var(--accent-strong); 
+}
+body.light-mode .dot.done {
+  background: rgba(13, 148, 136, 0.2);
+  color: #134e4a;
+}
+
+.dot.pending { 
+  background: rgba(245, 158, 11, 0.12); 
+  border-color: rgba(245, 158, 11, 0.4); 
+  color: #fbbf24; 
+}
+body.light-mode .dot.pending { color: #d97706; }
+
 .dot.future { opacity: 0.5; }
 .dot.current { box-shadow: 0 0 0 2px var(--accent); }
 
-.card-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.progress-form {
-  background: var(--card); /* Corregido para usar variable */
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 12px;
-  display: grid;
-  gap: 10px;
-}
-
-.range-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.checkbox {
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: 8px;
-}
-
-.form-actions { display: flex; gap: 8px; }
-
+/* --- Recordatorios y Alertas --- */
 .reminder-grid {
   display: grid;
   gap: 12px;
@@ -316,7 +385,7 @@ input:focus, textarea:focus {
 
 .reminder-card {
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--card); /* Usar variable card */
   border-radius: 14px;
   padding: 12px;
   display: grid;
@@ -336,13 +405,12 @@ input:focus, textarea:focus {
 }
 
 .alert-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--chip-bg);
   border: 1px dashed var(--border);
   border-radius: 14px;
   padding: 16px;
   display: grid;
   gap: 8px;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
 }
 
 .alert-card__head {
@@ -364,12 +432,13 @@ input:focus, textarea:focus {
   justify-content: space-between;
   gap: 12px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--card);
   padding: 12px;
   border-radius: 12px;
 }
 
-.alert-modal {
+/* --- Modales --- */
+.alert-modal, .progress-form {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -379,61 +448,37 @@ input:focus, textarea:focus {
   color: var(--text);
 }
 
+.progress-form {
+  display: grid;
+  gap: 10px;
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.checkbox {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-actions { display: flex; gap: 8px; }
+
+/* --- Media Queries --- */
 @media (max-width: 860px) {
   .hero {
     grid-template-columns: 1fr;
   }
 }
 
-/* =========================================
-   CORRECCIONES VISUALES PARA MODO CLARO
-   (Pegar al final de styles.css)
-   ========================================= */
-
-/* 1. Arreglar la cabecera (Hero) para que no sea azul oscura */
-body.light-mode .hero {
-  background: linear-gradient(120deg, rgba(6, 182, 212, 0.1), rgba(255, 255, 255, 0.9));
-  border-bottom: 1px solid var(--border);
-}
-
-/* 2. Arreglar las tarjetas de resumen (Pill Card) */
-body.light-mode .pill-card {
-  background: rgba(255, 255, 255, 0.7); /* Fondo blanco semitransparente */
-  border-color: var(--border);
-}
-
-/* 3. Arreglar los cuadritos de estadísticas dentro de la tarjeta */
-body.light-mode .pill-card__stat {
-  background: rgba(0, 0, 0, 0.05); /* Gris clarito en lugar de blanco transparente */
-}
-
-/* 4. Arreglar los botones secundarios (Ghost) para que se vean el borde */
-body.light-mode .ghost {
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  color: var(--text);
-}
-
-/* 5. Arreglar los campos de texto (Inputs) para que tengan borde visible */
-body.light-mode input, 
-body.light-mode textarea, 
-body.light-mode select {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  color: var(--text);
-}
-
-body.light-mode input:focus, 
-body.light-mode textarea:focus {
-  border-color: var(--accent);
-  background: #fff;
-}
-
-/* 6. Arreglar tarjetas de recordatorios y alertas */
-body.light-mode .reminder-card,
-body.light-mode .alert-card,
-body.light-mode .alert-list__item,
-body.light-mode .chip {
-  background: #ffffff;
-  border-color: var(--border);
+/* Layout Main Padding */
+main {
+  padding: 32px clamp(16px, 4vw, 56px) 64px;
+  display: grid;
+  gap: 28px;
 }
