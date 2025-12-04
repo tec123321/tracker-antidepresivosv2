@@ -384,3 +384,56 @@ input:focus, textarea:focus {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================
+   CORRECCIONES VISUALES PARA MODO CLARO
+   (Pegar al final de styles.css)
+   ========================================= */
+
+/* 1. Arreglar la cabecera (Hero) para que no sea azul oscura */
+body.light-mode .hero {
+  background: linear-gradient(120deg, rgba(6, 182, 212, 0.1), rgba(255, 255, 255, 0.9));
+  border-bottom: 1px solid var(--border);
+}
+
+/* 2. Arreglar las tarjetas de resumen (Pill Card) */
+body.light-mode .pill-card {
+  background: rgba(255, 255, 255, 0.7); /* Fondo blanco semitransparente */
+  border-color: var(--border);
+}
+
+/* 3. Arreglar los cuadritos de estadísticas dentro de la tarjeta */
+body.light-mode .pill-card__stat {
+  background: rgba(0, 0, 0, 0.05); /* Gris clarito en lugar de blanco transparente */
+}
+
+/* 4. Arreglar los botones secundarios (Ghost) para que se vean el borde */
+body.light-mode .ghost {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: var(--text);
+}
+
+/* 5. Arreglar los campos de texto (Inputs) para que tengan borde visible */
+body.light-mode input, 
+body.light-mode textarea, 
+body.light-mode select {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: var(--text);
+}
+
+body.light-mode input:focus, 
+body.light-mode textarea:focus {
+  border-color: var(--accent);
+  background: #fff;
+}
+
+/* 6. Arreglar tarjetas de recordatorios y alertas */
+body.light-mode .reminder-card,
+body.light-mode .alert-card,
+body.light-mode .alert-list__item,
+body.light-mode .chip {
+  background: #ffffff;
+  border-color: var(--border);
+}
